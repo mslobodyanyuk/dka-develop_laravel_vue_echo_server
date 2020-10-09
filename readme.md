@@ -162,7 +162,7 @@ By the way, `redis` does NOT work only on Linux, it can be used on different OS.
 	
 IF answer: `PONG` means EVERYTHING is great.
 
-(1:28) Install using `composer` the package that will make `Laravel` work with the `redis`-SERVER. In the directory with the `laravel` project, execute the following command:
+[(1:28)]( https://youtu.be/m7C_YdeILqY?list=PLD5U-C5KK50WlQNiunPPXSj5jjxVVTPtk&t=80 ) Install using `composer` the package that will make `Laravel` work with the `redis`-SERVER. In the directory with the `laravel` project, execute the following command:
 
 	composer require predis/predis
 
@@ -247,7 +247,7 @@ App\Providers\BroadcastServiceProvider::class,
 ...	
 ```
 
-	- In the boot () method, it loads the routes from the `routes/channels.php` file	
+	- In the `boot()` method, it loads the routes from the `routes/channels.php` file	
 `routes/channels.php`
 /*Here you can register ALL broadcast channels supported by the application. The specified channel authorization callbacks are used to check if the authenticated user can listen on the channel.*/
 Call-back function, the condition is checked in it, and the equivalence operand is used, that is, the user id must match NOT only in value, BUT and in the type of the variable. That is, the id of the channel and the authorized user
@@ -302,7 +302,7 @@ Open the layout `resources/views/layouts/app.blade.php` - You see, this includes
 	php artisan make:event Message
 
 `Message.php`
-...
+
 As in the previous examples, follow the same steps. - We implement the class interface( `ShouldBroadcast` ) - create an object in the class that will be public( `$message` ) and the event that will receive
 one parameter and assign its value to the class object. Channel - here the recording will be different, we will use the channel class which is a public class as in the previous videos.
 [(2:30)]( https://youtu.be/YYb-mxVk1zs?list=PLD5U-C5KK50WlQNiunPPXSj5jjxVVTPtk&t=150 ) Let's create a custom component from the `resources/js/components/chat.vue` example. Add a form element that will be displayed. message and a field for entering a message.
@@ -349,6 +349,7 @@ which on the SERVER side will accept the connection from the user. The second is
 We need to fix the code. In the route, we are already passing the element value to the event, NOT an array. Accordingly, we remove the call to the property and leave ONLY the value.
 [(7:00)]( https://youtu.be/YYb-mxVk1zs?list=PLD5U-C5KK50WlQNiunPPXSj5jjxVVTPtk&t=420 ) We launch 2 browser windows: we type in the 1st field - fine, the message is completed, BUT it is duplicated. There is a simple solution implemented by the standard. We open an event and class `InteractsWithSockets`.
 It has a method `dontBroadcastToCurrentUser()` - it just needs to be added to our event.
+
 [(7:15)]( https://youtu.be/YYb-mxVk1zs?list=PLD5U-C5KK50WlQNiunPPXSj5jjxVVTPtk&t=435 ) `Message.php`
 - To NOT duplicate the message, add to `__construct()`:
 
@@ -362,7 +363,7 @@ $this->dontBroadcastToCurrentUser();
 [(7:55)]( https://youtu.be/YYb-mxVk1zs?list=PLD5U-C5KK50WlQNiunPPXSj5jjxVVTPtk&t=475 ) Let's see what is displayed in the console: who joined the channel; to which, `'left'` - means that the user has left the channel, which event was triggered. The queue displays the running and completed tasks.
 - After the end of the work, an event was sent to users.
 
-	http://dka-develop_laravel_vue_echo_server.loc
+	`http://dka-develop_laravel_vue_echo_server.loc`
 
 ---
 
@@ -473,8 +474,10 @@ And listening to the queue:
 	cd /var/www/LARAVEL/VUE/dka-develop_laravel_vue_echo_server.loc
 	php artisan queue:work
 
-[(7:00)]( https://youtu.be/epfEcW-EB_A?list=PLD5U-C5KK50WlQNiunPPXSj5jjxVVTPtk&t=420 ) Launch 2 browser windows? We have two users, let's go under them. IF you DO NOT have users in the system, create them:
+[(7:00)]( https://youtu.be/epfEcW-EB_A?list=PLD5U-C5KK50WlQNiunPPXSj5jjxVVTPtk&t=420 ) Launch 2 browser windows. We have two users, let's go under them. IF you DO NOT have users in the system, create them:
+
 !!! We go in each window under different users: !!! OPEN one window -> "Open a New Window", the second - "Open a New Private Window" !!!:
+
 !!! NECESSARILY ENTER THE ADDRESS AS THE AUTHOR, THROUGH THE DEVELOPMENT SERVER:
 
 	http://127.0.0.1:8000/
@@ -506,6 +509,7 @@ public function __construct($data)
 ```			
 
 [(7:35)]( https://youtu.be/epfEcW-EB_A?list=PLD5U-C5KK50WlQNiunPPXSj5jjxVVTPtk&t=455 ) - Both users have connected to channel OR room #2, since the route returns TRUE and ALL has access.
+
 [(7:50)]( https://youtu.be/epfEcW-EB_A?list=PLD5U-C5KK50WlQNiunPPXSj5jjxVVTPtk&t=470 )
 
 ![screenshot of sample]( https://github.com/mslobodyanyuk/dka-develop_laravel_vue_echo_server/blob/master/public/images/4/4.png ) Two users have different id in the database. Now we will indicate in the routes like this:
@@ -522,6 +526,7 @@ In Terminal with `laravel-echo-server start`:
 IF the user is allowed to connect, the connection will be displayed in the terminal in blue.
 In another browser window:
 IF - the user is NOT allowed to connect, the `403 connection ERROR` will be highlighted in red.
+
 [(8:50)]( https://youtu.be/epfEcW-EB_A?list=PLD5U-C5KK50WlQNiunPPXSj5jjxVVTPtk&t=530 ) Change the condition so that only Vaso can "listen":
 `channels.php`
 
@@ -604,7 +609,7 @@ public function users(){
 [(3:12)]( https://youtu.be/YXI16BqCP_s?list=PLD5U-C5KK50WlQNiunPPXSj5jjxVVTPtk&t=192 ) Now we will be using an interactive environment, we will NOT use controllers, routes and templates to populate the database. BUT and using phpMyAdmin AND similar tools
   - this is also trivial and NOT entirely correct. + You'll also see how to use `tinker` again.
 	
-	php artisan tinker
+	`php artisan tinker`
 
 From the last issue, you remember that we had two users Ivan( `id=1` ) and Sergey( `id=2` ). Let's fetch the string with Ivan from the database:
 
@@ -732,7 +737,7 @@ console.log(this.room)
 
 	http://127.0.0.1:8000/room/1
 
-	- See, here comes ALL the values from the table from room # 1.
+	- See, here comes ALL the values from the table from room #1.
 
 Now the second room
 
@@ -778,6 +783,7 @@ And listening to the queue:
 	php artisan queue:work
 
 [(9:35)]( https://youtu.be/YXI16BqCP_s?list=PLD5U-C5KK50WlQNiunPPXSj5jjxVVTPtk&t=575 ) - Now let's go to the browser "under Ivan" (Vano) - he has permission to enter the first and second rooms.
+
 	- !!! ALWAYS ENTER THE ADDRESS AS THE AUTHOR THROUGH THE DEVELOPMENT SERVER:
 					
 	http://127.0.0.1:8000/
@@ -842,9 +848,10 @@ $user->rooms
 	http://127.0.0.1:8000/room/2
 	
 	- Entry is now allowed. Let's send a message - EVERYTHING works.
-+
+    +
 	- We check the sending of messages, from two windows to each other in the same rooms, first the first, then the second.
 !!! We go in each window under different users: !!! OPEN one window -> "Open a New Window", the second - "Open a New Private Window" !!!:
+
 !!! ALWAYS ENTER THE ADDRESS AS THE AUTHOR THROUGH THE DEVELOPMENT SERVER:
 
 	http://127.0.0.1:8000/
@@ -876,12 +883,16 @@ We transfer the data of the authorized user. Open the private chat component `Pr
 We initialize the dynamic property `user`. So that the recording with the listened channel does NOT repeat itself - let's take it out separately.
  - For these purposes it is better to use `computed`, and NOT to render methods; assign a name and return this entry. - Now you can
 using `this.channel` is great OOP in action, try NOT to produce code. Now, when you press any key, we will
-call the method. We create the `actionUser()` method, listen to the channel, the `.whisper()` method will broadcast to the channel that the user types
+call the method. 
+
+We create the `actionUser()` method, listen to the channel, the `.whisper()` method will broadcast to the channel that the user types
 message. The second parameter is an array. We will transfer the name. We refer to the property, one of the elements of which is
 the `name` field. The event has been sent. - How do we get it? Add one more method to the listener that will listen to the event
 `.listenForWhisper()`; By the way, the event name is NOT a reserved word, you can specify any and process it. You can track
 any user action. An arrow function accepts data. Let's create a field that will be displayed IF the property is
-display TRUE. We initialize, `isActive: false` - by default FALSE. Now, when the event is triggered, assign this property
+display TRUE. 
+
+We initialize, `isActive: false` - by default FALSE. Now, when the event is triggered, assign this property
 the value of `this.isActive`, it will receive an array of data. Accordingly, we enter the value of the `name` key and the usual static package.
 Now you need to add a timer after which this property will take on the value FALSE, and this block will be hidden,
 that is, when the user stops typing, he gets distracted ... Create a timer, it will take on the value `false` after 2
@@ -889,12 +900,15 @@ seconds. And one more thing, so that there is NOT a situation when one timer is 
 starts another, it is necessary to reject the execution of this code ... - add one more property `typingTimer`. IF `timer = TRUE` -
 then we cancel the execution and assign the timer value to this property. Now, as soon as the message arrives, the timer is also needed
 cleanse. So that there is NO situation when a message from the user came, but the fact that he is typing the text is still displayed.
+
 [(6:25)]( https://youtu.be/cXeNaMOEo0U?list=PLD5U-C5KK50WlQNiunPPXSj5jjxVVTPtk&t=385 ) - We start all services.
 Rebuilding the code:
 
-	cd /var/www/LARAVEL/VUE/dka-develop_laravel_vue_echo_server.loc
-	npm run watch-poll
-	php artisan serve
+	`cd /var/www/LARAVEL/VUE/dka-develop_laravel_vue_echo_server.loc`
+	
+	`npm run watch-poll`
+	
+	`php artisan serve`
 
 In different terminals:
 		
@@ -907,7 +921,9 @@ And listening to the queue:
 	php artisan queue:work
 		
 [(6:30)]( https://youtu.be/cXeNaMOEo0U?list=PLD5U-C5KK50WlQNiunPPXSj5jjxVVTPtk&t=390 ) Checking the result. - Launch two different browser windows. - This is IMPORTANT, users must be different( Ivan( Vano ), Sergey( Vaso )):
+
 !!! We go in each window under different users: !!! OPEN one window -> "Open a New Window", the second - "Open a New Private Window" !!!:
+
 !!! ALWAYS ENTER THE ADDRESS AS THE AUTHOR THROUGH THE DEVELOPMENT SERVER:
 
 	http://127.0.0.1:8000/
@@ -929,7 +945,7 @@ We enter the preview in Both browsers:
 	127.0.0.1:8000/room/1					
 	
 We are typing a message, Ivan( Vano ) is typing, a "whisper" is visible - excellent. Sergei( Vaso ) - also.
-  - We send messages to each other, we see a "whisper". Super, the chat has become more dynamic.
+    - We send messages to each other, we see a "whisper". Super, the chat has become more dynamic.
  
 --- 
  
@@ -945,12 +961,14 @@ Actions:
 
 We are continuing our study of `laravel-echo-server` and in this series we will talk about `presence channel`. This will be useful to us in the case when
 we want to see who connected to the chat, who left the chat, and how many users are online. ALL the code in our video is based on the first episode
-our `laravel-echo-server` tutorials. Open our component with the `PrivateChat.vue` chat. For the `presence channel` to work, you need to change the method
+our `laravel-echo-server` tutorials. 
+Open our component with the `PrivateChat.vue` chat. For the `presence channel` to work, you need to change the method
 from `private` to `join`. Now here we can start working with online users who came in and those who left the chat. Let's create separately
 a list in which we will display the chat participants, use the lists( `<li>`, `v-for` ... ) display the contents of the array, initialize our property
 `ActiveUsers`. To keep track of ALL participants, use the `here()` method. This is the return value from the pipe. We assign it to our
 property. Now, IF the user is connected, add the value that came from the channel to the array. And it remains to remove the user from the array
 who left the chat. We use the splice method and remove the index from the array that matches the value of the logged out user.
+
 [(2:30)]( https://youtu.be/BpOu55DLQgU?list=PLD5U-C5KK50WlQNiunPPXSj5jjxVVTPtk&t=150 ) Ok, let's go to `routes/channels.php`. - Changes need to be made here. To get data in a component, you need from
 route to return them. Yes ... here you can return NOT only boolean values: TRUE or FALSE. We check if the user is allowed to enter the room,
 then we return his name. And as we know, any content other than `NULL`, `false`, and an empty array is TRUE. therefore
@@ -972,7 +990,7 @@ Each method has its own purpose:
 
 ```php
 return new PresenceChannel('room.' . $this->data['room_id']);
-```php
+```
 
 Checking the result:
 [(3:30)]( https://youtu.be/BpOu55DLQgU?list=PLD5U-C5KK50WlQNiunPPXSj5jjxVVTPtk&t=210 ) - Start all services.
@@ -995,7 +1013,9 @@ And listening to the queue:
 In browsers, go to the same rooms under different users.
 
 [(3:40)]( https://youtu.be/BpOu55DLQgU?list=PLD5U-C5KK50WlQNiunPPXSj5jjxVVTPtk&t=220 ) - Launch 2 browser windows:
+
 !!! We go in each window under different users: !!! OPEN one window -> "Open a New Window", the second - "Open a New Private Window" !!!:
+
 !!! ALWAYS ENTER THE ADDRESS AS THE AUTHOR THROUGH THE DEVELOPMENT SERVER:
 
 	http://127.0.0.1:8000/

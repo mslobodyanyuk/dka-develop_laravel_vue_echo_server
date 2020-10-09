@@ -8,6 +8,7 @@ Laravel echo server - чат | Realtime
 	`sudo chmod -R 777 /var/www/LARAVEL/VUE/dka-develop_laravel_vue_echo_server.loc`
 
 	//!!! .conf
+	
 	`sudo cp /etc/apache2/sites-available/test.loc.conf /etc/apache2/sites-available/dka-develop_laravel_vue_echo_server.loc.conf`
 		
 	`sudo nano /etc/apache2/sites-available/dka-develop_laravel_vue_echo_server.loc.conf`
@@ -105,19 +106,19 @@ As you can see, the prefix( in the console ) is NOT `private` now, but `presence
 
 Checking the result: [#7 (3:30)]( https://youtu.be/BpOu55DLQgU?list=PLD5U-C5KK50WlQNiunPPXSj5jjxVVTPtk&t=210 )
 
-![screenshot of sample]( https://github.com/mslobodyanyuk/dka-develop_laravel_vue_echo_server/blob/master/public/images/#7/1.png )
+![screenshot of sample]( https://github.com/mslobodyanyuk/dka-develop_laravel_vue_echo_server/blob/master/public/images/7/1.png )
 
-![screenshot of sample]( https://github.com/mslobodyanyuk/dka-develop_laravel_vue_echo_server/blob/master/public/images/#7/2.png )
+![screenshot of sample]( https://github.com/mslobodyanyuk/dka-develop_laravel_vue_echo_server/blob/master/public/images/7/2.png )
 
-![screenshot of sample]( https://github.com/mslobodyanyuk/dka-develop_laravel_vue_echo_server/blob/master/public/images/#7/3.png )
+![screenshot of sample]( https://github.com/mslobodyanyuk/dka-develop_laravel_vue_echo_server/blob/master/public/images/7/3.png )
 
-![screenshot of sample]( https://github.com/mslobodyanyuk/dka-develop_laravel_vue_echo_server/blob/master/public/images/#7/4.png )
+![screenshot of sample]( https://github.com/mslobodyanyuk/dka-develop_laravel_vue_echo_server/blob/master/public/images/7/4.png )
 
-![screenshot of sample]( https://github.com/mslobodyanyuk/dka-develop_laravel_vue_echo_server/blob/master/public/images/#7/5.png )
+![screenshot of sample]( https://github.com/mslobodyanyuk/dka-develop_laravel_vue_echo_server/blob/master/public/images/7/5.png )
 
-![screenshot of sample]( https://github.com/mslobodyanyuk/dka-develop_laravel_vue_echo_server/blob/master/public/images/#7/6.png )
+![screenshot of sample]( https://github.com/mslobodyanyuk/dka-develop_laravel_vue_echo_server/blob/master/public/images/7/6.png )
 
-![screenshot of sample]( https://github.com/mslobodyanyuk/dka-develop_laravel_vue_echo_server/blob/master/public/images/#7/7.png )
+![screenshot of sample]( https://github.com/mslobodyanyuk/dka-develop_laravel_vue_echo_server/blob/master/public/images/7/7.png )
 
 #### Useful links:
 
@@ -374,7 +375,7 @@ Actions:
 In this release, we will start exploring private channels on laravel-echo-server. Private channels are needed so that the user to whom the message is addressed and only he can receive
 transmitted data. This means that another user will NOT be able to intercept them.
 [(0:30)]( https://youtu.be/epfEcW-EB_A?list=PLD5U-C5KK50WlQNiunPPXSj5jjxVVTPtk&t=30 ) 
-![screenshot of sample]( https://github.com/mslobodyanyuk/dka-develop_laravel_vue_echo_server/blob/master/public/images/#4/1.png ) - We are of course talking about a standard intercept attempt. Even by changing the channel name through the browser console, this will NOT work. The current hack remains a vulnerability
+![screenshot of sample]( https://github.com/mslobodyanyuk/dka-develop_laravel_vue_echo_server/blob/master/public/images/4/1.png ) - We are of course talking about a standard intercept attempt. Even by changing the channel name through the browser console, this will NOT work. The current hack remains a vulnerability
 systems, BUT this is a separate topic and no one is immune from this. This topic will consist of two issues. In order for private channels to work and user code and code on
 the SERVER side must be configured. When connecting, the user must indicate that he is connecting to a private channel and transmit a value or number. It will already be used here
 the `channels` file in the routes folder.
@@ -394,7 +395,7 @@ public function broadcastOn()
 ```
 	
 [(2:40)]( https://youtu.be/epfEcW-EB_A?list=PLD5U-C5KK50WlQNiunPPXSj5jjxVVTPtk&t=160 )
-![screenshot of sample]( https://github.com/mslobodyanyuk/dka-develop_laravel_vue_echo_server/blob/master/public/images/#4/2.png ) Let's imagine the user connected to room 2, the matching route is checked in the route file, then the call-back function checks if the user can connect
+![screenshot of sample]( https://github.com/mslobodyanyuk/dka-develop_laravel_vue_echo_server/blob/master/public/images/4/2.png ) Let's imagine the user connected to room 2, the matching route is checked in the route file, then the call-back function checks if the user can connect
 to the channel. It returns TRUE and the user waits for the data. As soon as the event sends data via this channel, the user will receive it. By the way to the channel name when using private channels
 prefix `private` is added in front of it.
 [(3:05)]( https://youtu.be/epfEcW-EB_A?list=PLD5U-C5KK50WlQNiunPPXSj5jjxVVTPtk&t=185 ) Let's do it quickly for the sake of experiment, that is, it means that it is NOT necessary to do this - in the next part of the video we will do it more correctly.
@@ -425,7 +426,7 @@ Broadcast::channel('room.{room_id}', function ($user, $room_id) {
 		
 [(6:20)]( https://youtu.be/epfEcW-EB_A?list=PLD5U-C5KK50WlQNiunPPXSj5jjxVVTPtk&t=380 )
 
-![screenshot of sample]( https://github.com/mslobodyanyuk/dka-develop_laravel_vue_echo_server/blob/master/public/images/#4/3.png )
+![screenshot of sample]( https://github.com/mslobodyanyuk/dka-develop_laravel_vue_echo_server/blob/master/public/images/4/3.png )
 
 This is the route, and the host is specified. 
 [(6:30)]( https://youtu.be/epfEcW-EB_A?list=PLD5U-C5KK50WlQNiunPPXSj5jjxVVTPtk&t=390 ) `laravel-echo-server.json` - We are currently using running Laravel with a SERVER for development on port 8000. And here the port is NOT specified - it must be specified.
@@ -507,7 +508,7 @@ public function __construct($data)
 [(7:35)]( https://youtu.be/epfEcW-EB_A?list=PLD5U-C5KK50WlQNiunPPXSj5jjxVVTPtk&t=455 ) - Both users have connected to channel OR room #2, since the route returns TRUE and ALL has access.
 [(7:50)]( https://youtu.be/epfEcW-EB_A?list=PLD5U-C5KK50WlQNiunPPXSj5jjxVVTPtk&t=470 )
 
-![screenshot of sample]( https://github.com/mslobodyanyuk/dka-develop_laravel_vue_echo_server/blob/master/public/images/#4/4.png ) Two users have different id in the database. Now we will indicate in the routes like this:
+![screenshot of sample]( https://github.com/mslobodyanyuk/dka-develop_laravel_vue_echo_server/blob/master/public/images/4/4.png ) Two users have different id in the database. Now we will indicate in the routes like this:
 [(7:55)]( https://youtu.be/epfEcW-EB_A?list=PLD5U-C5KK50WlQNiunPPXSj5jjxVVTPtk&t=475 ) Add a condition to `channels.php` IF the user's id is equal to the channel( room ) number, then he is allowed to enter:
 ( - Matches ONLY for Vaso id(2) = room_id(2) )
 `channels.php`
@@ -725,7 +726,7 @@ console.log(this.room)
 
 [(7:45)]( https://youtu.be/YXI16BqCP_s?list=PLD5U-C5KK50WlQNiunPPXSj5jjxVVTPtk&t=465 )
 
-![screenshot of sample]( https://github.com/mslobodyanyuk/dka-develop_laravel_vue_echo_server/blob/master/public/images/#5/1.png )
+![screenshot of sample]( https://github.com/mslobodyanyuk/dka-develop_laravel_vue_echo_server/blob/master/public/images/5/1.png )
 
  Open the browser along the route of room #1, and the console (F12):
 
@@ -864,7 +865,7 @@ Actions:
 In this series, we will learn how to broadcast user events to ALL chat participants.
 [(0:15)]( https://youtu.be/cXeNaMOEo0U?list=PLD5U-C5KK50WlQNiunPPXSj5jjxVVTPtk&t=15 ) Illustrative example:
 
-![screenshot of sample]( https://github.com/mslobodyanyuk/dka-develop_laravel_vue_echo_server/blob/master/public/images/#6/1.png )
+![screenshot of sample]( https://github.com/mslobodyanyuk/dka-develop_laravel_vue_echo_server/blob/master/public/images/6/1.png )
 
 We went under different users Ivan( Vano ) is typing a message and Sergey( - the second user Vaso ) sees who is typing it.
 As soon as the dialing has stopped after a certain time, the message disappears and is hidden after receiving the message.
@@ -1027,16 +1028,16 @@ As you can see, the prefix( in the console ) is NOT `private` now, but `presence
 
 Checking the result: #7 [(3:30)]( https://youtu.be/BpOu55DLQgU?list=PLD5U-C5KK50WlQNiunPPXSj5jjxVVTPtk&t=210 )
 
-![screenshot of sample]( https://github.com/mslobodyanyuk/dka-develop_laravel_vue_echo_server/blob/master/public/images/#7/1.png )
+![screenshot of sample]( https://github.com/mslobodyanyuk/dka-develop_laravel_vue_echo_server/blob/master/public/images/7/1.png )
 
-![screenshot of sample]( https://github.com/mslobodyanyuk/dka-develop_laravel_vue_echo_server/blob/master/public/images/#7/2.png )
+![screenshot of sample]( https://github.com/mslobodyanyuk/dka-develop_laravel_vue_echo_server/blob/master/public/images/7/2.png )
 
-![screenshot of sample]( https://github.com/mslobodyanyuk/dka-develop_laravel_vue_echo_server/blob/master/public/images/#7/3.png )
+![screenshot of sample]( https://github.com/mslobodyanyuk/dka-develop_laravel_vue_echo_server/blob/master/public/images/7/3.png )
 
-![screenshot of sample]( https://github.com/mslobodyanyuk/dka-develop_laravel_vue_echo_server/blob/master/public/images/#7/4.png )
+![screenshot of sample]( https://github.com/mslobodyanyuk/dka-develop_laravel_vue_echo_server/blob/master/public/images/7/4.png )
 
-![screenshot of sample]( https://github.com/mslobodyanyuk/dka-develop_laravel_vue_echo_server/blob/master/public/images/#7/5.png )
+![screenshot of sample]( https://github.com/mslobodyanyuk/dka-develop_laravel_vue_echo_server/blob/master/public/images/7/5.png )
 
-![screenshot of sample]( https://github.com/mslobodyanyuk/dka-develop_laravel_vue_echo_server/blob/master/public/images/#7/6.png )
+![screenshot of sample]( https://github.com/mslobodyanyuk/dka-develop_laravel_vue_echo_server/blob/master/public/images/7/6.png )
 
-![screenshot of sample]( https://github.com/mslobodyanyuk/dka-develop_laravel_vue_echo_server/blob/master/public/images/#7/7.png )
+![screenshot of sample]( https://github.com/mslobodyanyuk/dka-develop_laravel_vue_echo_server/blob/master/public/images/7/7.png )

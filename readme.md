@@ -228,7 +228,7 @@ We look - laravel-echo-server.json
 ( - `laravel-echo` and `socket.io-client` client )
 	
 npm install
-+ npm install -g npm
+    //npm install -g npm
 
 Error: EACCES: permission denied, access '/usr/local/lib/node_modules/npm/node_modules/npm-registry-fetch/node_modules/safe-buffer:
 
@@ -249,6 +249,7 @@ App\Providers\BroadcastServiceProvider::class,
 
 	- In the boot() method, it loads the routes from the routes/channels.php file	
 `routes/channels.php`
+
 /*Here you can register ALL broadcast channels supported by the application. The specified channel authorization callbacks are used to check if the authenticated user can listen on the channel.*/
 Call-back function, the condition is checked in it, and the equivalence operand is used, that is, the user id must match NOT only in value, BUT and in the type of the variable. That is, the id of the channel and the authorized user
 matches, then it will be allowed to listen to the channel. BUT while we're talking about the public channel, it does NOT matter.( - For now, comment.)
@@ -291,8 +292,10 @@ Actions:
 
 `routes/web.php`	
 [(0:40)]( https://youtu.be/YYb-mxVk1zs?list=PLD5U-C5KK50WlQNiunPPXSj5jjxVVTPtk&t=40 ) Change the name of the template for the route that is responsible for the main page `chat.blade.php`.
+
 [(0:45)]( https://youtu.be/YYb-mxVk1zs?list=PLD5U-C5KK50WlQNiunPPXSj5jjxVVTPtk&t=45 ) Let's create it and include the layout that was created after executing the command to create authorization `resources/views/chat.blade.php`. - This will list our Vue component that we will create.
 Open the layout `resources/views/layouts/app.blade.php` - You see, this includes the `app.js` file that contains the Vue code. It must be connected.
+
 [(1:30)]( https://youtu.be/YYb-mxVk1zs?list=PLD5U-C5KK50WlQNiunPPXSj5jjxVVTPtk&t=90 ) After each change of the js code, you need to rebuild( `app.js` - it must be connected( - in `app.blade.php` ) )
 
 	npm run watch-poll
@@ -305,6 +308,7 @@ Open the layout `resources/views/layouts/app.blade.php` - You see, this includes
 
 As in the previous examples, follow the same steps. - We implement the class interface( `ShouldBroadcast` ) - create an object in the class that will be public( `$message` ) and the event that will receive
 one parameter and assign its value to the class object. Channel - here the recording will be different, we will use the channel class which is a public class as in the previous videos.
+
 [(2:30)]( https://youtu.be/YYb-mxVk1zs?list=PLD5U-C5KK50WlQNiunPPXSj5jjxVVTPtk&t=150 ) Let's create a custom component from the `resources/js/components/chat.vue` example. Add a form element that will be displayed. message and a field for entering a message.
 
 `Chat.vue`
@@ -350,6 +354,7 @@ which on the SERVER side will accept the connection from the user. The second is
 	php artisan queue:work
 
 We need to fix the code. In the route, we are already passing the element value to the event, NOT an array. Accordingly, we remove the call to the property and leave ONLY the value.
+
 [(7:00)]( https://youtu.be/YYb-mxVk1zs?list=PLD5U-C5KK50WlQNiunPPXSj5jjxVVTPtk&t=420 ) We launch 2 browser windows: we type in the 1st field - fine, the message is completed, BUT it is duplicated. There is a simple solution implemented by the standard. We open an event and class `InteractsWithSockets`.
 It has a method `dontBroadcastToCurrentUser()` - it just needs to be added to our event.
 
@@ -363,6 +368,7 @@ $this->dontBroadcastToCurrentUser();
 [(7:40)]( https://youtu.be/YYb-mxVk1zs?list=PLD5U-C5KK50WlQNiunPPXSj5jjxVVTPtk&t=460 )
 `routes/web.php` + `Chat.vue`
   - Try again - great. IF in the route we passed ALL the values that come, then in the component it is necessary would refer to the element.
+  
 [(7:55)]( https://youtu.be/YYb-mxVk1zs?list=PLD5U-C5KK50WlQNiunPPXSj5jjxVVTPtk&t=475 ) Let's see what is displayed in the console: who joined the channel; to which, `'left'` - means that the user has left the channel, which event was triggered. The queue displays the running and completed tasks.
 - After the end of the work, an event was sent to users.
 
@@ -440,6 +446,7 @@ Broadcast::channel('room.{room_id}', function ($user, $room_id) {
 ![screenshot of sample]( https://github.com/mslobodyanyuk/dka-develop_laravel_vue_echo_server/blob/master/public/images/4/3.png )
 
 This is the route, and the host is specified. 
+
 [(6:30)]( https://youtu.be/epfEcW-EB_A?list=PLD5U-C5KK50WlQNiunPPXSj5jjxVVTPtk&t=390 ) `laravel-echo-server.json` - We are currently using running Laravel with a SERVER for development on port 8000. And here the port is NOT specified - it must be specified.
 IF you are using Apache OR nginx and port 80, then you can NOT specify it.
 
@@ -892,7 +899,7 @@ pass the user under which we are logged in, we pass through dynamic properties.
 [(1:40)]( https://youtu.be/cXeNaMOEo0U?list=PLD5U-C5KK50WlQNiunPPXSj5jjxVVTPtk&t=100 ) `resources/views/room.blade.php`. IF entered - the block is displayed. It is even better to use route validation for these purposes.
 We transfer the data of the authorized user. Open the private chat component `PrivateChat.vue`.
 We initialize the dynamic property `user`. So that the recording with the listened channel does NOT repeat itself - let's take it out separately.
- - For these purposes it is better to use `computed`, and NOT to render methods; assign a name and return this entry. - Now you can
+    - For these purposes it is better to use `computed`, and NOT to render methods; assign a name and return this entry. - Now you can
 using `this.channel` is great OOP in action, try NOT to produce code. Now, when you press any key, we will
 call the method. 
 
@@ -906,9 +913,13 @@ display TRUE.
 We initialize, `isActive: false` - by default FALSE. Now, when the event is triggered, assign this property
 the value of `this.isActive`, it will receive an array of data. Accordingly, we enter the value of the `name` key and the usual static package.
 Now you need to add a timer after which this property will take on the value FALSE, and this block will be hidden,
-that is, when the user stops typing, he gets distracted ... Create a timer, it will take on the value `false` after 2
+that is, when the user stops typing, he gets distracted ... 
+
+Create a timer, it will take on the value `false` after 2
 seconds. And one more thing, so that there is NOT a situation when one timer is superimposed on another, that is, when one does NOT finish its work -
-starts another, it is necessary to reject the execution of this code ... - add one more property `typingTimer`. IF `timer = TRUE` -
+starts another, it is necessary to reject the execution of this code ... - add one more property `typingTimer`. 
+
+IF `timer = TRUE` -
 then we cancel the execution and assign the timer value to this property. Now, as soon as the message arrives, the timer is also needed
 cleanse. So that there is NO situation when a message from the user came, but the fact that he is typing the text is still displayed.
 
@@ -973,10 +984,13 @@ Actions:
 We are continuing our study of `laravel-echo-server` and in this series we will talk about `presence channel`. This will be useful to us in the case when
 we want to see who connected to the chat, who left the chat, and how many users are online. ALL the code in our video is based on the first episode
 our `laravel-echo-server` tutorials. 
+
 Open our component with the `PrivateChat.vue` chat. For the `presence channel` to work, you need to change the method
 from `private` to `join`. Now here we can start working with online users who came in and those who left the chat. Let's create separately
 a list in which we will display the chat participants, use the lists( `<li>`, `v-for` ... ) display the contents of the array, initialize our property
-`ActiveUsers`. To keep track of ALL participants, use the `here()` method. This is the return value from the pipe. We assign it to our
+`ActiveUsers`. 
+
+To keep track of ALL participants, use the `here()` method. This is the return value from the pipe. We assign it to our
 property. Now, IF the user is connected, add the value that came from the channel to the array. And it remains to remove the user from the array
 who left the chat. We use the splice method and remove the index from the array that matches the value of the logged out user.
 

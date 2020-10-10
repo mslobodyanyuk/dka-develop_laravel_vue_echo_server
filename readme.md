@@ -247,7 +247,7 @@ App\Providers\BroadcastServiceProvider::class,
 ...	
 ```
 
-	- In the `boot()` method, it loads the routes from the `routes/channels.php` file	
+	- In the boot() method, it loads the routes from the routes/channels.php file	
 `routes/channels.php`
 /*Here you can register ALL broadcast channels supported by the application. The specified channel authorization callbacks are used to check if the authenticated user can listen on the channel.*/
 Call-back function, the condition is checked in it, and the equivalence operand is used, that is, the user id must match NOT only in value, BUT and in the type of the variable. That is, the id of the channel and the authorized user
@@ -317,12 +317,15 @@ one parameter and assign its value to the class object. Channel - here the recor
 
 We add two properties, the first will be an array and store our messages, the second will store the text of the message that we want to send. We output ALL values ​​of the message array, each element of which
 will start on a new line. Let's create a bi-directional connection with the message text to send and by pressing the Enter key the method for sending messages will be called.
+
 [(3:40)]( https://youtu.be/YYb-mxVk1zs?list=PLD5U-C5KK50WlQNiunPPXSj5jjxVVTPtk&t=220 ) - Create a method, use the `POST` method, route `messages`( - `routes/web.php` ) and parameters for sending: the name and value of our field. After sending, add the text to the array. We clear the field for entering messages.
+
 [(4:10)]( https://youtu.be/YYb-mxVk1zs?list=PLD5U-C5KK50WlQNiunPPXSj5jjxVVTPtk&t=250 ) Let's create this route in `routes/web.php`. It will fire an event and pass the value of the message input field (! DO NOT write the code in the route file, we will use it for a quick demo).
 It remains for us to create a connection between the CLIENT and the SERVER for the Realtime to work.
 Let's add code at the time of component mounting that will be responsible for listening to the channel from the user's side. We turn to the Echo js library, the channel method is passed the name of the channel `'chat'`.
 Then, in the listen method, we specify the name of the events. When creating we use an arrow function. We can modify the record of the arrow function and immediately pass in the body NOT ALL parameters that come from the SERVER,
 and a key which is an object in the event class. And add to the array the message text that was entered by some user.
+
 [(5:55)]( https://youtu.be/YYb-mxVk1zs?list=PLD5U-C5KK50WlQNiunPPXSj5jjxVVTPtk&t=355 )Registering our component - `resources/js/app.js`:
 
 	npm run watch-poll
@@ -340,7 +343,7 @@ We print in the template `chat.blade.php`:
 - In different terminals:
 Now, in the directory with the project, you need to run two commands, the first one:
 		
-	laravel-echo-server start
+	`laravel-echo-server start`
 		
 which on the SERVER side will accept the connection from the user. The second is the queue. This command will process the queues and deliver messages to the user.
 
@@ -380,11 +383,13 @@ transmitted data. This means that another user will NOT be able to intercept the
 systems, BUT this is a separate topic and no one is immune from this. This topic will consist of two issues. In order for private channels to work and user code and code on
 the SERVER side must be configured. When connecting, the user must indicate that he is connecting to a private channel and transmit a value or number. It will already be used here
 the `channels` file in the routes folder.
+
 [(1:20)]( https://youtu.be/epfEcW-EB_A?list=PLD5U-C5KK50WlQNiunPPXSj5jjxVVTPtk&t=80 ) `routes/channels.php` - This file is responsible for authenticating the user, whether he can connect to this channel OR NOT. The first parameter takes the name of the channel, there is a part
 Immutable, it must match the part that the user is sending. And the second part is a number or value that can change, that is, where the user wants to connect.
 It is used here as a variable interpolation in a string OR an entry as in routes - the value from `channels.php` will be substituted in curly braces. The second parameter in the call-back function
 must match this record. `{room_id}` - The main thing is that as a result of this function, the value TRUE is returned. There may be a lot of code here that checks whether the user can
 connect to this channel. - IF the return is FALSE, the user's connection to the channel is rejected. IF TRUE, then the user connects to the channel AND listens for data.
+
 [(2:15)]( https://youtu.be/epfEcW-EB_A?list=PLD5U-C5KK50WlQNiunPPXSj5jjxVVTPtk&t=135 ) The next event is `Message.php`. There will also be changes, there is another class for private channels( `PrivateChannel` ) and the channel must also match the part that does NOT change and the part that it receives.
 `Message.php`
 
@@ -399,17 +404,22 @@ public function broadcastOn()
 ![screenshot of sample]( https://github.com/mslobodyanyuk/dka-develop_laravel_vue_echo_server/blob/master/public/images/4/2.png ) Let's imagine the user connected to room 2, the matching route is checked in the route file, then the call-back function checks if the user can connect
 to the channel. It returns TRUE and the user waits for the data. As soon as the event sends data via this channel, the user will receive it. By the way to the channel name when using private channels
 prefix `private` is added in front of it.
+
 [(3:05)]( https://youtu.be/epfEcW-EB_A?list=PLD5U-C5KK50WlQNiunPPXSj5jjxVVTPtk&t=185 ) Let's do it quickly for the sake of experiment, that is, it means that it is NOT necessary to do this - in the next part of the video we will do it more correctly.
+
 [(3:15)]( https://youtu.be/epfEcW-EB_A?list=PLD5U-C5KK50WlQNiunPPXSj5jjxVVTPtk&t=195 ) - We return as it was in the state of the previous lesson. Let's do it more correctly.
+
 [(3:25)]( https://youtu.be/epfEcW-EB_A?list=PLD5U-C5KK50WlQNiunPPXSj5jjxVVTPtk&t=205 ) Create a copy of the component from the previous `PrivateChat.vue` video. We change the channel to `private`, indicate the room number in the routes, add a new channel, add the room number, check.
 We will immediately return TRUE. - This is NOT necessary. It is necessary to check whether the user can enter this channel. - We will do this in the next videos, but for now we need to show you how it works.
 Add the team number to the dispatch.
+
 [(4:10)]( https://youtu.be/epfEcW-EB_A?list=PLD5U-C5KK50WlQNiunPPXSj5jjxVVTPtk&t=250 ) Create a `PrivateChat` event:
 
 	php artisan make:event PrivateChat 
 
 It will transfer ALL values from the component. - We indicate the channel and the number of the team that came from the component. In the component we change the event and the key, since the class member is no longer `message`, but `data` and
 Message text.
+
 [(5:25)]( https://youtu.be/epfEcW-EB_A?list=PLD5U-C5KK50WlQNiunPPXSj5jjxVVTPtk&t=325 ) Register the component in `app.js` and output to the `chat.blade.php` template. In the file with routes, change the event that is called when a message is sent. We pass ALL values from the component to the event. There is an important note:
 
 ```
@@ -878,6 +888,7 @@ We went under different users Ivan( Vano ) is typing a message and Sergey( - the
 As soon as the dialing has stopped after a certain time, the message disappears and is hidden after receiving the message.
 Now Sergei( Vaso ) is dialing - Ivan( Vano ) sees who is dialing. We open our project from the last video. Needed in the project
 pass the user under which we are logged in, we pass through dynamic properties.
+
 [(1:40)]( https://youtu.be/cXeNaMOEo0U?list=PLD5U-C5KK50WlQNiunPPXSj5jjxVVTPtk&t=100 ) `resources/views/room.blade.php`. IF entered - the block is displayed. It is even better to use route validation for these purposes.
 We transfer the data of the authorized user. Open the private chat component `PrivateChat.vue`.
 We initialize the dynamic property `user`. So that the recording with the listened channel does NOT repeat itself - let's take it out separately.
@@ -904,11 +915,11 @@ cleanse. So that there is NO situation when a message from the user came, but th
 [(6:25)]( https://youtu.be/cXeNaMOEo0U?list=PLD5U-C5KK50WlQNiunPPXSj5jjxVVTPtk&t=385 ) - We start all services.
 Rebuilding the code:
 
-	`cd /var/www/LARAVEL/VUE/dka-develop_laravel_vue_echo_server.loc`
+	cd /var/www/LARAVEL/VUE/dka-develop_laravel_vue_echo_server.loc
 	
-	`npm run watch-poll`
+	npm run watch-poll
 	
-	`php artisan serve`
+	php artisan serve
 
 In different terminals:
 		
